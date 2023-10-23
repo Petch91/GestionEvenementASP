@@ -1,0 +1,52 @@
+﻿@using DAL.Interfaces;
+@using DAL.Models;
+@model DAL.Models.Event
+@inject IEventService eventService
+
+@{
+   ViewData["Title"] = "AddType";
+}
+
+<h1>AddType</h1>
+
+<h4>Event</h4>
+<hr />
+<div class="row">
+   <div class="col-md-4">
+      <form asp-action="AddType">
+         @{
+            int i = 0;
+            foreach (var et in Model.TypeByDays)
+            {
+               et.Date = Model.StartDate.AddDays(i);
+               <p>Jour@(i+1) @et.Date.ToString("D") :  </p>
+               <div class="form-group">
+                  <label asp-for="@et.Type" class="control-label"></label>
+                  <select asp-for="@et.Type.Id" class="form-select" aria-label="Choisir Genre">
+                     @foreach (var item in eventService.GetTypes())
+                     {
+                        <option value="@item.Id">@item.Name</option>
+                     }
+                  </select>
+                  <span asp-validation-for="@et.Type.Id" class="text-danger"></span>
+               </div>
+               i++;
+               <br />
+            }
+         }
+         <div class="form-group">
+            <input type="submit" value="Envoyer" class="btn btn-primary" />
+         </div>
+      </form>
+   </div>
+</div>
+
+<div>
+   <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+   @{
+      await Html.RenderPartialAsync("_ValidationScriptsPartial");
+   }
+   }

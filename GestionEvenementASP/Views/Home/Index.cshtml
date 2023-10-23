@@ -1,0 +1,23 @@
+﻿@using GestionEvenementASP.Tools;
+@inject SessionManager session;
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+
+   @if(session.ConnectedUser == null)
+   {
+      <h1 class="display-4">Welcome</h1>
+   }
+   else
+   {
+      <h1 class="display-4">Bienvenue sur Eventia, @session.ConnectedUser.LastName @session.ConnectedUser.FirstName </h1>
+      <p>Cette application va vous aider à bien gérer vos Evenements </p>
+
+      if (session.ConnectedUser.Role.Id == 4)
+      {
+         <a asp-action="Create" asp-controller="Event">Creer event</a>
+      }
+   }
+</div>

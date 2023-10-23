@@ -1,0 +1,71 @@
+﻿@model IEnumerable<DAL.Models.Event>
+
+@{
+   ViewData["Title"] = "List";
+}
+
+<h1>List</h1>
+
+<table class="table">
+   <thead>
+      <tr>
+         <th>
+            Evenement
+         </th>
+         <th>
+            Commence le
+         </th>
+         <th>
+            Termine le
+         </th>
+         <th>
+            @Html.DisplayNameFor(model => model.Location)
+         </th>
+         <th>
+            Adresse
+         </th>
+         <th>
+            Status
+         </th>
+         <th>Theme par jour</th>
+      </tr>
+   </thead>
+   <tbody>
+      @foreach (var item in Model)
+      {
+         <tr>
+
+            <td>
+               @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+               @item.StartDate.ToString("D")
+            </td>
+            <td>
+               @item.EndDate.ToString("D")
+            </td>
+            <td>
+               @Html.DisplayFor(modelItem => item.Location)
+            </td>
+            <td>
+               @Html.DisplayFor(modelItem => item.Adress)
+            </td>
+            <td>
+               @Html.DisplayFor(modelItem => item.StatusId)
+            </td>
+            <td>
+               @{
+                  int i = 1;
+                  foreach (var et in item.TypeByDays)
+                  {
+                     <p>Jour @i : @et.Date.ToString("D") :</p>
+                     <p>@et.Type.Name</p>
+                     i++;
+                  }
+               }
+            </td>
+
+         </tr>
+      }
+   </tbody>
+</table>
