@@ -9,7 +9,8 @@ namespace DAL.Interfaces
 {
     public interface IEventService
    {
-      void Create(Event e, string token);
+      void AddTypeByDays(EventTypeDayCreate eventTypeDays);
+      void Create(EventCreate e, string token);
       IEnumerable<Event> GetEvents();
       IEnumerable<EventType> GetTypes();
    }

@@ -1,6 +1,6 @@
 ﻿@using DAL.Interfaces;
 @using DAL.Models;
-@model DAL.Models.Event
+@model IEnumerable<DAL.Models.EventTypeDay>
 @inject IEventService eventService
 
 @{
@@ -16,9 +16,8 @@
       <form asp-action="AddType">
          @{
             int i = 0;
-            foreach (var et in Model.TypeByDays)
+            foreach (var et in Model)
             {
-               et.Date = Model.StartDate.AddDays(i);
                <p>Jour@(i+1) @et.Date.ToString("D") :  </p>
                <div class="form-group">
                   <label asp-for="@et.Type" class="control-label"></label>

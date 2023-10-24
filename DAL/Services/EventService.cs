@@ -17,7 +17,7 @@ namespace DAL.Services
       {
          _url = config.GetConnectionString("api");
       }
-      public void Create(Event e, string token)
+      public void Create(EventCreate e, string token)
       {
          Post(e, _url + "Event/", token);
       }
@@ -30,6 +30,10 @@ namespace DAL.Services
       public IEnumerable<EventType> GetTypes()
       {
          return Get<IEnumerable<EventType>>(_url + "Event/GetTypes/");
+      }
+      public void AddTypeByDays(EventTypeDayCreate eventTypeDays)
+      {
+         Post(eventTypeDays, _url + "Event/AddTypeByDay/");
       }
    }
 }
