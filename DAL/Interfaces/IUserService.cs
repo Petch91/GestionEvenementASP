@@ -15,5 +15,6 @@ namespace DAL.Interfaces
       IEnumerable<User> GetUsers(string token);
 
       bool SetRole(int idUser, int idRole, string token);
+      void Update(User user, string token);
    }
 }

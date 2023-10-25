@@ -14,9 +14,28 @@ html {
 }
 
 body {
-  margin-bottom: 60px;
+   margin-bottom: 60px;
+   background: linear-gradient(#8e9eab,#eef2f3);
 }
 
 #hidden {
    display: none;
+}
+
+.badge{
+   display: inline-block;
+   padding: 0.35em 0.65em;
+   font-size: 0.75em;
+   font-weight: 700;
+   line-height: 1;
+   color: #fff;
+   text-align: center;
+   white-space: nowrap;
+   vertical-align: baseline;
+   border-radius: 0.25rem;
+   background-color : darkcyan
+}
+
+.rounded-pill {
+   border-radius: 50rem !important;
 }

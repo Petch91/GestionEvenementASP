@@ -6,6 +6,7 @@ using GestionEvenementASP.Tools;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Newtonsoft.Json;
+using System.Diagnostics;
 
 namespace GestionEvenementASP.Controllers
 {
@@ -26,19 +27,30 @@ namespace GestionEvenementASP.Controllers
       [AdminRequired]
       public IActionResult Create()
       {
-         return View();
+         if (TempData["event"] is null)
+         {
+            return View();
+         }
+         Event e = JsonConvert.DeserializeObject<Event>((string)TempData["event"]);
+         return View(e);
       }
 
       [HttpPost]
       public IActionResult CreateEvent(Event e)
       {
+         if (!ModelState.IsValid)
+         {
+            TempData["error"] = ModelState["EndDate"].Errors.First().ErrorMessage;
+            string json = JsonConvert.SerializeObject(e);
+            TempData["event"] = json;
+            return RedirectToAction("create");
+         }
          int nbrDays = (e.EndDate - e.StartDate).Days + 1;
          e.TypeByDays = new List<EventTypeDay>();
          for (int i = 0; i < nbrDays; i++)
          {
             e.TypeByDays.Add(new EventTypeDay { Date = (e.StartDate.AddDays(i)) });
          }
-         TempData["i"] = 1;
          return View(e);
       }
       [HttpPost]

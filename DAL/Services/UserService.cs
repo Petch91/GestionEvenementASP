@@ -84,5 +84,9 @@ namespace DAL.Services
       {
          return Patch(new { idUser, idRole }, _url + "user/setrole", token);
       }
+      public void Update(User user , string token)
+      {
+         Patch(user, _url + "user/changeinfo/", token);
+      }
    }
 }

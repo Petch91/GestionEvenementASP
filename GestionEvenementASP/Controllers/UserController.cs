@@ -19,11 +19,16 @@ namespace GestionEvenementASP.Controllers
          _session = session;
       }
 
-      public IActionResult Index()
+      public IActionResult Profil()
       {
-         return View();
+         return View(_userService.GetById(_session.ConnectedUser.Id));
       }
-
+      [HttpPost]
+      public IActionResult UpdateUser(User user)
+      {
+         _userService.Update(user, _session.Token);
+         return RedirectToAction("Profil");
+      }
       public IActionResult Register()
       {
          return View();
